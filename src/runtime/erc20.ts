@@ -176,9 +176,9 @@ class ERC20Runtime {
             // transaction.gasPrice = gasPrice;
             transaction.maxFeePerGas = this.gasPrice.mul(3);
             transaction.maxPriorityFeePerGas = this.gasPrice.mul(3);
+            transaction.type = 2;
             transaction.gasLimit = this.gasEstimation;
             transaction.nonce = sender.getNonce();
-            transaction.type = 2;
 
             transactions.push(transaction);
 

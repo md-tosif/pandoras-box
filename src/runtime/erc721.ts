@@ -138,7 +138,10 @@ class ERC721Runtime {
             // Override the defaults
             transaction.from = sender.getAddress();
             transaction.chainId = chainID;
-            transaction.gasPrice = gasPrice;
+            // transaction.gasPrice = gasPrice;
+            transaction.maxFeePerGas = this.gasPrice.mul(3);
+            transaction.maxPriorityFeePerGas = this.gasPrice.mul(3);
+            transaction.type = 2;
             transaction.gasLimit = this.gasEstimation;
             transaction.nonce = sender.getNonce();
 
