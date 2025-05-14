@@ -89,10 +89,13 @@ class EOARuntime {
                 from: sender.getAddress(),
                 chainId: chainID,
                 to: receiver.getAddress(),
-                gasPrice: gasPrice,
+                // gasPrice: gasPrice,
                 gasLimit: this.gasEstimation,
                 value: this.defaultValue,
+                maxFeePerGas : this.gasPrice.mul(3),
+                maxPriorityFeePerGas : this.gasPrice.mul(3),
                 nonce: sender.getNonce(),
+                type: 2,
             });
 
             sender.incrNonce();

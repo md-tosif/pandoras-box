@@ -117,7 +117,7 @@ class ERC20Runtime {
     async GetGasPrice(): Promise<BigNumber> {
         this.gasPrice = await this.provider.getGasPrice();
 
-        return this.gasPrice;
+        return this.gasPrice.mul(1);
     }
 
     async ConstructTransactions(
@@ -174,6 +174,8 @@ class ERC20Runtime {
             transaction.from = sender.getAddress();
             transaction.chainId = chainID;
             transaction.gasPrice = gasPrice;
+            transaction.maxFeePerGas = this.gasPrice.mul(3);
+            transaction.maxPriorityFeePerGas = this.gasPrice.mul(3);
             transaction.gasLimit = this.gasEstimation;
             transaction.nonce = sender.getNonce();
 
