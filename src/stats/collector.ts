@@ -75,6 +75,11 @@ class txBatchResult {
     }
 }
 
+// function to wait for a given number of milliseconds
+function sleep(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 class StatCollector {
     async gatherTransactionReceipts(
         txHashes: string[],
@@ -82,6 +87,8 @@ class StatCollector {
         provider: Provider
     ): Promise<txStats[]> {
         Logger.info('Gathering transaction receipts...');
+
+        sleep(60 * 1000);
 
         const receiptBar = new SingleBar({
             barCompleteChar: '\u2588',
@@ -184,6 +191,9 @@ class StatCollector {
         }
 
         Logger.success('Gathered transaction receipts');
+
+        sleep(60 * 1000);
+        
 
         return succeededTransactions;
     }
