@@ -33,7 +33,10 @@ class ERC20Runtime {
 
     constructor(mnemonic: string, url: string) {
         this.mnemonic = mnemonic;
-        this.provider = new JsonRpcProvider(url);
+        this.provider = new JsonRpcProvider({
+            url: url,
+            timeout: 4 * 6 * 1000,
+        });
         this.url = url;
 
         this.baseDeployer = Wallet.fromMnemonic(

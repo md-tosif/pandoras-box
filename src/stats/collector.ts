@@ -469,7 +469,10 @@ class StatCollector {
 
         Logger.title('\n⏱ Statistics calculation initialized ⏱\n');
 
-        const provider = new JsonRpcProvider(url);
+        const provider = new JsonRpcProvider({
+            url: url,
+            timeout: 4 * 6 * 1000,
+        });
 
         // Fetch receipts
         const txStats = await this.gatherTransactionReceipts(

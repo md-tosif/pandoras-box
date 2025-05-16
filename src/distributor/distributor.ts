@@ -56,7 +56,10 @@ class Distributor {
         this.runtimeEstimator = runtimeEstimator;
         this.readyMnemonicIndexes = [];
 
-        this.provider = new JsonRpcProvider(url);
+        this.provider = new JsonRpcProvider({
+            url: url,
+            timeout: 4 * 6 * 1000,
+        });
         this.ethWallet = Wallet.fromMnemonic(
             mnemonic,
             `m/44'/60'/0'/0/0`
