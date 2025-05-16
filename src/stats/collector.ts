@@ -88,7 +88,7 @@ class StatCollector {
     ): Promise<txStats[]> {
         Logger.info('Gathering transaction receipts...');
 
-        sleep(60 * 1000);
+        await sleep(60 * 1000);
 
         const receiptBar = new SingleBar({
             barCompleteChar: '\u2588',
@@ -192,7 +192,7 @@ class StatCollector {
 
         Logger.success('Gathered transaction receipts');
 
-        sleep(60 * 1000);
+        await sleep(60 * 1000);
         
 
         return succeededTransactions;
