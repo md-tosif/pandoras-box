@@ -433,7 +433,7 @@ class StatCollector {
             }
 
             totalUtilization += info.gasUtilization;
-            Logger.info(`Block ${info.blockNum}`);
+            // Logger.info(`Block ${info.blockNum}`);
             totalGas = BigNumber.from(info.gasUsed).add(totalGas);
             sumOfGasPrice = BigNumber.from(info.gasPrice).add(sumOfGasPrice);
         });
