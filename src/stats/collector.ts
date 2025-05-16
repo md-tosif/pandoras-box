@@ -5,6 +5,7 @@ import { SingleBar } from 'cli-progress';
 import Table from 'cli-table3';
 import Logger from '../logger/logger';
 import Batcher from '../runtime/batcher';
+import { formatUnits } from '@ethersproject/units';
 
 class txStats {
     txHash: string;
@@ -22,6 +23,7 @@ class BlockInfo {
     numTxs: number;
 
     gasUsed: string;
+    gasPrice: string;
     gasLimit: string;
     gasUtilization: number;
 
@@ -30,13 +32,15 @@ class BlockInfo {
         createdAt: number,
         numTxs: number,
         gasUsed: BigNumber,
-        gasLimit: BigNumber
+        gasLimit: BigNumber,
+        gasPrice: BigNumber,
     ) {
         this.blockNum = blockNum;
         this.createdAt = createdAt;
         this.numTxs = numTxs;
         this.gasUsed = gasUsed.toHexString();
         this.gasLimit = gasLimit.toHexString();
+        this.gasPrice = gasPrice.toHexString();
 
         const largeDivision = gasUsed
             .mul(BigNumber.from(10000))
@@ -305,7 +309,8 @@ class StatCollector {
                         fetchedInfo.timestamp,
                         fetchedInfo.transactions.length,
                         fetchedInfo.gasUsed,
-                        fetchedInfo.gasLimit
+                        fetchedInfo.gasLimit,
+                        fetchedInfo.baseFeePerGas ?? BigNumber.from(0),
                     )
                 );
             } catch (e: any) {
@@ -411,21 +416,40 @@ class StatCollector {
     }
 
     printFinalData(tps: number, blockInfoMap: Map<number, BlockInfo>) {
+        let minBlock = blockInfoMap.keys().next().value || Infinity;
+        let maxBlock = blockInfoMap.keys().next().value || 0;
+        let totalGas = BigNumber.from(0);
+        let sumOfGasPrice = BigNumber.from(0);
         // Find average utilization
         let totalUtilization = 0;
         blockInfoMap.forEach((info) => {
+
+            if (info.blockNum < minBlock) {
+                minBlock = info.blockNum;
+            }
+
+            if (info.blockNum > maxBlock) {
+                maxBlock = info.blockNum;
+            }
+
             totalUtilization += info.gasUtilization;
+            Logger.info(`Block ${info.blockNum}`);
+            totalGas = BigNumber.from(info.gasUsed).add(totalGas);
+            sumOfGasPrice = BigNumber.from(info.gasPrice).add(sumOfGasPrice);
         });
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const avgUtilization = totalUtilization / blockInfoMap.size;
 
         const finalDataTable = new Table({
-            head: ['TPS', 'Blocks', 'Avg. Utilization'],
+            head: ['TPS', 'Start - End Blocks', 'Avg. Gas / block', 'Avg Gas Price'],
         });
 
         finalDataTable.push([
             tps,
-            blockInfoMap.size,
-            `${avgUtilization.toFixed(2)}%`,
+            `${BigInt(minBlock).toString()} - ${BigInt(maxBlock).toString()}`,
+            // in gwei
+            totalGas.div(blockInfoMap.size).toString(),
+            formatUnits(sumOfGasPrice.div(blockInfoMap.size), 'gwei'),
         ]);
 
         Logger.info(finalDataTable.toString());
