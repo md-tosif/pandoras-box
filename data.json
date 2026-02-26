@@ -1,0 +1,40 @@
+[
+    {
+        "contractAddresses": "0x74Fb4D87c1bEA5f16AfE7B6F4Dc5eB9E7A34F4e4",
+        "getCode": "await getCode(e)",
+        "getSlots": {
+            "0": "0x0000000000000000000000000ec7d5ffc823fc94375f30bd60d16857287f6c0b",
+            "1": "0x000000000000000000000000090e00ff84da5785deaa1967c1beff6ff9a58bee",
+            "4": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            "5": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            "6": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            "7": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+        }
+    },
+    {
+        "contractAddresses": "0xF0C7eC2cc2866F482009818F1Ea343d6e7f181e9",
+        "getCode": "await getCode(e)",
+        "getSlots": {
+            "2": "0x000000000000000000000000000000000000000010f6b2be4706a13fc2000000",
+            "3": "0x434152524e617469766500000000000000000000000000000000000000000014",
+            "4": "0x4341525200000000000000000000000000000000000000000000000000000008",
+            "8": "0x00000000000000000000000016ee106a08e8f76fe50e4c460790c8b184998ae5"
+        }
+    },
+    {
+        "contractAddresses": "0xb6eFF1F58BDc08D032b74Da39512d90b1Db6263a",
+        "getCode": "await getCode(e)",
+        "getSlots": {
+            "2": "0x00000000000000000000000000000000000000000000d3c21bcecceda1000000",
+            "3": "0x546f73696600000000000000000000000000000000000000000000000000000a",
+            "4": "0x544f530000000000000000000000000000000000000000000000000000000006"
+        }
+    },
+    {
+        "contractAddresses": "0x36060895B231CbFfdEb65aa09F61E1516248508A",
+        "getCode": "await getCode(e)",
+        "getSlots": {
+            "0": "0x0000000000000000000000000000000000000000000000000000000000000001"
+        }
+    }
+]
